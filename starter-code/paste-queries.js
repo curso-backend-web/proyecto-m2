@@ -31,7 +31,7 @@ db.getCollection('products').find({})
 
 
 // PASTE LIST PRODUCTS QUERY HERE
-db.products.find({})
+db.products.find({name:1})
 
 // PASTE CATEGORY PRODUCTS QUERY HERE
 db.products.find({category:1})
@@ -40,4 +40,4 @@ db.products.find({category:1})
 db.products.deleteOne({_id:1});
 
 // PASTE REVIEW QUERY HERE
-db.reviews.find({})
+db.reviews.find({name:1})
