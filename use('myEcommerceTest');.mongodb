@@ -1,12 +1,13 @@
-use('myEcommerceTest');
+//use('myEcommerceTest');
 
- /*db.createCollection('clients', {
+ /* db.createCollection('clients', {
 
     validator:{
         $jsonSchema: {
             // validaciones collection
             bsonType: "object",
-            required: ["_id","firstName","lastName", "dateBirth","address"],
+            required: ["_id","firstName","lastName"],
+             additionalProperties: true,
             properties: { // como hariamos en typeScript, declaramos el tipado
                 _id: {
                        bsonType: "objectId"
@@ -18,38 +19,7 @@ use('myEcommerceTest');
                 lastName: {
                     bsonType: "string",
                     description: "must be a string and is required"
-                },
-                dateBirth: {
-                    bsonType: "string",
-                    description: "must be a string and is required"
-                },
-                address:
-                  {
-                    bsonType: [ "array" ],
-                    items: {
-                    bsonType: "object",
-                    required:["streetAddress","city","state","postalCode"],
-                    properties:{
-                    streetAddress: {
-                    bsonType: "string",
-                    description: "must be a string and is required"
-                    },
-                    city: {
-                    bsonType: "string",
-                    description: "must be a string and is required"
-                    },
-                    state: {
-                    bsonType: "string",
-                    description: "must be a string and is required"
-                    },
-                    postalCode: {
-                    bsonType: "string",
-                    description: "must be a string and is required"
-                    }
-                    }
-                  },
-                                  description: "must be a array of objects containing streetAddress,city,state,postalCode"
-                  }
+                } 
                 }
             }
         }
@@ -96,7 +66,7 @@ use('myEcommerceTest');
     category:"Kitchen",
     price:23.0
 }); */
- db.createCollection('reviews', {
+/* db.createCollection('reviews', {
 
     validator:{
         $jsonSchema: {
@@ -128,10 +98,4 @@ use('myEcommerceTest');
             }
         }
     }
-})
-/* db.products.insertOne({
-    name:"Water Bottle",
-    description:"High quality glass bottle provides a healthier way to drink.  Silicone sleeve provides a good grip, a see-through window, and protects the glass vessel.  Eliminates toxic leaching that plastic can cause.  Innovative design holds 22-1/2 ounces.  Dishwasher safe",
-    category:"Kitchen",
-    price:23.0
-}); */
+})*/

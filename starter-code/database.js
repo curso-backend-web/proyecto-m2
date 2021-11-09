@@ -1,49 +1,72 @@
-
+import {MongoClient} from 'mongodb';
+import {config} from './config';
 class Database {
 
 //puedes implementar el constructor si vas a usarlo
+constructor(config){
+  this.url = config.url;
+  this.db = config.db;
+  this.client = new MongoClient(this.url, {useNewUrlParser:true});
 
+}
   async connect() {
     try {
-      if (this.database) {
-        return
-      } else {
-        //implementa aquí la conexión a la bbdd
-        this.database = //tu conexión;
-      }
+
+      return await this.client.connect();
+
     } catch (error) {
+
       console.log(error);
+      this.close();
+      throw error;
     }
   }
 
 
   async close() {
-    if (this.database) {
-      await this.database.close(true, callback);
-    } else {
-      return;
+    
+    try {
+      this.client.close();
+
+    } catch (error) {
+
+      console.log(error);
+      throw error;
     }
   }
 
   async insertUser(user) {
     try {
-      await this.connect;
+      const myConnection = await this.connect();
+      if(myConnection)
       // Implement the query to insert a user
+      const result = await this.db.collection('clients').insertOne(user);
       // user is the document that we want to insert
-      console.log('it works!! ;)')
+      console.log('it works!! ;)');
+      this.close();
+      return result;
+     
     } catch (error) {
+
       console.log(error);
+      throw error;
     }
 
   }
 
 
-  async listUsers() {
+  async listUsers(data) {
     try {
-      await this.connect;
+     const myConnection =  await this.connect();
+     // container
+     const result = [];
+
+     if(myConnection)
+     result = await this.db.collection('clients').insertMany(data);
       // Implement the query to list users
       console.log('it works!! ;)')
-      return [];
+      return result;
+
     } catch (error) {
       console.log(error);
     }
@@ -51,12 +74,15 @@ class Database {
 
   async deleteUser(firstName) {
     try {
-      await this.connect;
-
+      const myConnection = await this.connect();
+      const query = this.db.collection('clients').find({name: firstName});
+      
       // Implement the query to delete a user
+      if(myConnection)
+      const result = await this.db.collection('clients').removeOne(query);
       // firstName is the name of user that we want to delete
-      console.log('it works!! ;)')
-      return {};
+      console.log('it works!! ;)');
+     // return ;
     } catch (error) {
       console.log(error);
     }
@@ -125,4 +151,4 @@ class Database {
   }
 }
 
-export default Database;
+export default Database(config);

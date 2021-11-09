@@ -10,6 +10,6 @@ export const config = {
     },
     mongo:{
         url: env.DB_URL || 'mongodb://localhost:27017',
-        database: env.DB_NAME || 'eShop'
+        database: env.DB_NAME || 'myEcommerceTest'
     },
 }
