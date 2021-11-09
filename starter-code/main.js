@@ -1,5 +1,5 @@
 import clear from 'clear';
-import { config } from './config.js';
+import  config  from './config.js';
 import Database from './database.js';
 import Questions from './questions.js';
 

@@ -1,17 +1,17 @@
 import {MongoClient} from 'mongodb';
-import {config} from './config';
+import config from './config.js';
 class Database {
 
 //puedes implementar el constructor si vas a usarlo
 constructor(config){
   this.url = config.url;
-  this.db = config.db;
+  this.db = config.database;
   this.client = new MongoClient(this.url, {useNewUrlParser:true});
-
+ this.connect();
 }
   async connect() {
     try {
-
+      console.log('CONNECTED');
       return await this.client.connect();
 
     } catch (error) {
@@ -37,14 +37,14 @@ constructor(config){
 
   async insertUser(user) {
     try {
-      const myConnection = await this.connect();
+     await this.connect();
       if(myConnection)
       // Implement the query to insert a user
-      const result = await this.db.collection('clients').insertOne(user);
+       await this.db.collection('clients').insertOne(user);
       // user is the document that we want to insert
       console.log('it works!! ;)');
       this.close();
-      return result;
+      //return result;
      
     } catch (error) {
 
@@ -57,7 +57,7 @@ constructor(config){
 
   async listUsers(data) {
     try {
-     const myConnection =  await this.connect();
+       await this.connect();
      // container
      const result = [];
 
