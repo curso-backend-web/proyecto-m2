@@ -65,7 +65,7 @@ class Questions {
 								const user = {
 										firstName,
 										lastName,
-										dateBirth: new Date(),
+										dateBirth: new Date().toISOString().split('T')[0],
 										address: { street, city, state, postalCode }
 									};
 								callback(user);

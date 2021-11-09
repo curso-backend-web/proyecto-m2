@@ -1,15 +1,18 @@
-
+import mysql from 'mysql2/promise';
+import { config } from './config.js';
 class Database {
 
-//puedes implementar el constructor si vas a usarlo
-
-  async connect() {
+  //puedes implementar el constructor si vas a usarlo
+  constructor(config) {
+    this.db = config;
+  }
+  async connect(db) {
     try {
       if (this.database) {
         return
       } else {
         //implementa aquí la conexión a la bbdd
-        this.database = //tu conexión;
+        this.database = await mysql.createConnection(db);//tu conexión;
       }
     } catch (error) {
       console.log(error);
@@ -19,7 +22,7 @@ class Database {
 
   async close() {
     if (this.database) {
-      await this.database.close(true, callback);
+      await this.database.end();
     } else {
       return;
     }
@@ -27,23 +30,55 @@ class Database {
 
   async insertUser(user) {
     try {
-      await this.connect;
-      // Implement the query to insert a user
-      // user is the document that we want to insert
+
+      await this.connect(this.db);
+      let sql = "INSERT INTO clientes \
+                (`firstname`,\
+                 `lastname`,\
+                 `datebirth`,\
+                 `address:streetaddress`,\
+                 `address:city`,\
+                 `address:state`,\
+                 `address:postalcode`)\
+      VALUES      (?, ?, ?, ?, ?, ?, ?);";
+
+      const values = [
+        user.firstName,
+        user.lastName,
+        user.dateBirth,
+        user.address.street,
+        user.address.city,
+        user.address.state,
+        user.address.postalCode];
+    
+      // sends queries and receives results
+      const result = await this.database.query(sql, values, (err, result) => {
+        if (err) throw err;
+        
+        this.database.end();
+        return result;
+      });
+
       console.log('it works!! ;)')
+      await this.close();
+      return result;
     } catch (error) {
       console.log(error);
     }
-
   }
-
 
   async listUsers() {
     try {
-      await this.connect;
+      await this.connect(this.db);
       // Implement the query to list users
+      const query = "SELECT * FROM eshop.clientes";
+      const result = await this.database.query(query)
+      let users = result[0];
+      
       console.log('it works!! ;)')
-      return [];
+      await this.close();
+
+      return users;
     } catch (error) {
       console.log(error);
     }
@@ -51,12 +86,27 @@ class Database {
 
   async deleteUser(firstName) {
     try {
-      await this.connect;
+      await this.connect(this.db);
 
       // Implement the query to delete a user
       // firstName is the name of user that we want to delete
+      const sql = "\
+      DELETE FROM eshop.clientes where clientes.firstName = ?; \
+      ";
+      const value = [firstName];
+
+      const result = await this.database.query(sql, value, (err, result) => {
+        if (err) throw err;
+        
+        this.database.end();
+        return result;
+      });
+
       console.log('it works!! ;)')
-      return {};
+      await this.close();
+      return result[0];
+
+      // return {};
     } catch (error) {
       console.log(error);
     }
