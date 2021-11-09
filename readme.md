@@ -97,3 +97,8 @@ Utiliza el código que se facilita en la carpeta `starter_code` y complétalo:
     **1 PTO**.
 
 Sube el código a GitHub y realiza el pull request para entregar el ejercicio.
+
+
+### Documentacion
+
+Mongo [schema](https://stackoverflow.com/questions/41504658/how-do-i-validated-array-of-objects-using-mongodb-validator)

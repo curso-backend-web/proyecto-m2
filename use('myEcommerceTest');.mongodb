@@ -1,0 +1,131 @@
+use('myEcommerceTest');
+
+ /*db.createCollection('clients', {
+
+    validator:{
+        $jsonSchema: {
+            // validaciones collection
+            bsonType: "object",
+            required: ["_id","firstName","lastName", "dateBirth","address"],
+            properties: { // como hariamos en typeScript, declaramos el tipado
+                _id: {
+                       bsonType: "objectId"
+                   },
+                firstName: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                lastName: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                dateBirth: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                address:
+                  {
+                    bsonType: [ "array" ],
+                    items: {
+                    bsonType: "object",
+                    required:["streetAddress","city","state","postalCode"],
+                    properties:{
+                    streetAddress: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                    },
+                    city: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                    },
+                    state: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                    },
+                    postalCode: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                    }
+                    }
+                  },
+                                  description: "must be a array of objects containing streetAddress,city,state,postalCode"
+                  }
+                }
+            }
+        }
+    
+})  */
+
+ /* db.createCollection('products', {
+
+    validator:{
+        $jsonSchema: {
+            // validaciones collection
+            bsonType: "object",
+            required: ["_id", "name" ,"description", "category", "price"],// que campos son obligatorios
+            additionalProperties: false,
+            properties: { // como hariamos en typeScript, declaramos el tipado
+                _id: {
+                    bsonType: "objectId"
+                },
+                name: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                description: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                category: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                price: {
+                    bsonType: "double",
+                    minimum: 0,
+                    description: "must be a decimal and is required"
+                },
+                
+            }
+        }
+    }
+})  */
+/* db.products.insertOne({
+    name:"Water Bottle",
+    description:"High quality glass bottle provides a healthier way to drink.  Silicone sleeve provides a good grip, a see-through window, and protects the glass vessel.  Eliminates toxic leaching that plastic can cause.  Innovative design holds 22-1/2 ounces.  Dishwasher safe",
+    category:"Kitchen",
+    price:23.0
+}); */
+ /* db.createCollection('reviews', {
+
+    validator:{
+        $jsonSchema: {
+            // validaciones collection
+            bsonType: "object",
+            required: ["_id", "name" ,"comment", "starts", "date"],// que campos son obligatorios
+            additionalProperties: false,
+            properties: { // como hariamos en typeScript, declaramos el tipado
+                _id: {
+                    bsonType: "objectId"
+                },
+                name: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                comment: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                starts: {
+                    bsonType: "int",
+                    description: "must be a number and is required"
+                },
+                date: {
+                    bsonType: "date",
+                    description: "must be a date and is required"
+                },
+                
+            }
+        }
+    }
+}) */ 
