@@ -5,7 +5,7 @@ export const config = {
     mySQL:{
         host: env.DB_HOST || 'localhost',
         user: env.DB_USER || 'root',
-        password: env.DB_PASSWORD || '',
+        password: env.DB_PASSWORD || '1234',
         database: env.DB_NAME || 'eShop'
     },
     mongo:{

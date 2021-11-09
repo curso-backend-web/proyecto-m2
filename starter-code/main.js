@@ -3,7 +3,7 @@ import { config } from './config.js';
 import Database from './database.js';
 import Questions from './questions.js';
 
-const db = new Database(config.mongo);
+const db = new Database(config.mySQL);
 const questions = new Questions();
 
 const mainMenu = () => {

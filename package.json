@@ -1,5 +1,17 @@
 {
+  "name": "m2eshop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
+    "clear": "^0.1.0",
     "mysql2": "^2.3.3-rc.0"
   }
 }
