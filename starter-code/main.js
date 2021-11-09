@@ -65,8 +65,8 @@ const insertUser = () => {
 	questions.askingInsertUser(async (user) => {
 		try {
 
-			const result = await db.insertUser();
-			console.log('Inserted: ', result.result.n);
+			const result = await db.insertUser(user);
+			console.log('Inserted: ', result);
 
 		} catch (error) {
 
@@ -102,8 +102,9 @@ const deleteUser = () => {
 	questions.askingForDeleteUser(async (userName) => {
 		try {
 
-			const result = await db.deleteUser();
-			console.log('Deleted: ', result.result.n);
+			const result = await db.deleteUser(userName);
+			console.log(result);
+			console.log('Deleted: ', result);
 
 		} catch (error) {
 
@@ -149,7 +150,7 @@ const insertProduct = () => {
 	questions.askingInsertProduct(async (product) => {
 		try {
 			const result = await db.insertProduct(product);
-			console.log('Inserted: ', result.result.n);
+			console.log('Inserted: ', result);
 		} catch (error) {
 			console.log(error);
 		}
@@ -182,8 +183,8 @@ const listProducts = async () => {
 const deleteProduct = () => {
 	questions.askingForDeleteProduct(async (name) => {
 		try {
-			const result = await db.deleteProduct();
-			console.log('Deleted: ', result.result.n);
+			const result = await db.deleteProduct(name);
+			console.log('Deleted: ', result);
 		} catch (error) {
 			console.log(error);
 		} finally {
