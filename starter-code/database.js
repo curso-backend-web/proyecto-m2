@@ -1,15 +1,24 @@
+import mysql from 'mysql2/promise';
+import {config} from './config.js';
 
 class Database {
 
 //puedes implementar el constructor si vas a usarlo
+constructor(config){
 
-  async connect() {
+  this.mySQL=config.mySQL;
+
+}
+
+  async connect(db) {
     try {
       if (this.database) {
         return
       } else {
         //implementa aquí la conexión a la bbdd
-        this.database = //tu conexión;
+        this.database = await mysql.createConnection(db);
+        //this.database = //tu conexión;
+        console.log('connection Ok');
       }
     } catch (error) {
       console.log(error);
@@ -27,10 +36,22 @@ class Database {
 
   async insertUser(user) {
     try {
+
       await this.connect;
       // Implement the query to insert a user
       // user is the document that we want to insert
+      // const results = await connection.execute('INSERT INTO (`firstName`,`lastName`,`dateBirth`,`address_address_id`,`historial_historial_id`) 
+      // VALUES ("user.firstName","user.lastName","user.DateBirth","user.address.streetAddress","user.address.","user.address.","user.address.","user.address.","user.address.")');
+
       console.log('it works!! ;)')
+
+
+      if(err) throw err;
+      await this._dropConnection();
+
+      return results;
+
+      
     } catch (error) {
       console.log(error);
     }
@@ -42,6 +63,7 @@ class Database {
     try {
       await this.connect;
       // Implement the query to list users
+      'SELECT * FROM cliente';
       console.log('it works!! ;)')
       return [];
     } catch (error) {
@@ -125,4 +147,4 @@ class Database {
   }
 }
 
-export default Database;
+export default new Database(config);
