@@ -81,7 +81,6 @@ Utiliza el código que se facilita en la carpeta `starter_code` y complétalo:
 4. Crea la conexión a la base de datos que has creado, en el fichero `database.js`
    **1 PTO**
 
-Crea las siguientes consultas dentro de la carpeta `questions.js`:
 
 | Actividad | Descripción | Nombre de la función|Puntuación|
 |-----|-------------|-------|--------|
