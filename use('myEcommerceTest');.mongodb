@@ -96,13 +96,13 @@ use('myEcommerceTest');
     category:"Kitchen",
     price:23.0
 }); */
- /* db.createCollection('reviews', {
+ db.createCollection('reviews', {
 
     validator:{
         $jsonSchema: {
             // validaciones collection
             bsonType: "object",
-            required: ["_id", "name" ,"comment", "starts", "date"],// que campos son obligatorios
+            required: ["_id", "name" ,"comment", "stars", "date"],// que campos son obligatorios
             additionalProperties: false,
             properties: { // como hariamos en typeScript, declaramos el tipado
                 _id: {
@@ -116,16 +116,22 @@ use('myEcommerceTest');
                     bsonType: "string",
                     description: "must be a string and is required"
                 },
-                starts: {
-                    bsonType: "int",
+                stars: {
+                    bsonType: "double",
                     description: "must be a number and is required"
                 },
                 date: {
-                    bsonType: "date",
-                    description: "must be a date and is required"
+                    bsonType: "string",
+                    description: "must be a string and is required"
                 },
                 
             }
         }
     }
-}) */ 
+})
+/* db.products.insertOne({
+    name:"Water Bottle",
+    description:"High quality glass bottle provides a healthier way to drink.  Silicone sleeve provides a good grip, a see-through window, and protects the glass vessel.  Eliminates toxic leaching that plastic can cause.  Innovative design holds 22-1/2 ounces.  Dishwasher safe",
+    category:"Kitchen",
+    price:23.0
+}); */
