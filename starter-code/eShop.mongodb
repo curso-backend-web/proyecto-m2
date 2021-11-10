@@ -1,0 +1,145 @@
+use('eShop');
+/* db.createCollection('clients', {
+
+    validator:{
+        $jsonSchema: {
+            // validaciones collection
+            bsonType: "object",
+            required: ["_id","firstName","lastName"],
+             additionalProperties: true,
+            properties: { // como hariamos en typeScript, declaramos el tipado
+                _id: {
+                       bsonType: "objectId"
+                   },
+                firstName: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                lastName: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                } 
+                }
+            }
+        }
+    
+}); */ 
+ /* db.createCollection('clients', {
+
+    validator:{
+        $jsonSchema: {
+            // validaciones collection
+            bsonType: "object",
+            required: ["_id","firstName","lastName", "address"],
+             additionalProperties: true,
+            properties: { // como hariamos en typeScript, declaramos el tipado
+                _id: {
+                       bsonType: "objectId"
+                   },
+                firstName: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                lastName: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                dateBirth: {
+                    bsonType: "string",
+                    description: "has changed to a string. Not required"
+                },
+                 address: {
+                     bsonType: "object",
+                     required: [ "city", "state"],
+                     properties: {
+                         streetAddress: {
+                            bsonType: "string",
+                            description: "must be a string if the field exists"
+                         },
+                         city: {
+                            bsonType: "string",
+                            description: "must be a string and is required"
+                         },
+                         state: {
+                            bsonType: "string",
+                            description: "must be a string and is required"
+                         },
+                         postalCode: {
+                            bsonType: "string",
+                            description: "must be a string if the field exists"
+                         },
+                     }
+                 }
+                }
+            }
+        }
+    
+});  */
+/* db.createCollection('products', {
+
+    validator:{
+        $jsonSchema: {
+            // validaciones collection
+            bsonType: "object",
+            required: ["_id", "name" ,"description", "category", "price"],// que campos son obligatorios
+            additionalProperties: false,
+            properties: { // como hariamos en typeScript, declaramos el tipado
+                _id: {
+                    bsonType: "objectId"
+                },
+                name: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                description: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                category: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                price: {
+                    bsonType: "double",
+                    minimum: 0,
+                    description: "must be a decimal and is required"
+                },
+                
+            }
+        }
+    }
+})  */
+/* db.createCollection('reviews', {
+
+    validator:{
+        $jsonSchema: {
+            // validaciones collection
+            bsonType: "object",
+            required: ["_id", "name" ,"comment", "stars", "date"],// que campos son obligatorios
+            additionalProperties: false,
+            properties: { // como hariamos en typeScript, declaramos el tipado
+                _id: {
+                    bsonType: "objectId"
+                },
+                name: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                comment: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                stars: {
+                    bsonType: "double",
+                    description: "must be a number and is required"
+                },
+                date: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                
+            }
+        }
+    }
+}) */
+// db.clients.drop();
