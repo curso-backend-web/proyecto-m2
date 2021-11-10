@@ -104,7 +104,7 @@ const deleteUser = () => {
 	questions.askingForDeleteUser(async (userName) => {
 		try {
 
-			const result = await db.deleteUser();
+			const result = await db.deleteUser(userName);
 			console.log('Deleted: ', result);
 
 		} catch (error) {
@@ -151,7 +151,7 @@ const insertProduct = () => {
 	questions.askingInsertProduct(async (product) => {
 		try {
 			const result = await db.insertProduct(product);
-			console.log('Inserted: ', result.result.n);
+			console.log('Inserted: ', result);
 		} catch (error) {
 			console.log(error);
 		}
@@ -184,8 +184,8 @@ const listProducts = async () => {
 const deleteProduct = () => {
 	questions.askingForDeleteProduct(async (name) => {
 		try {
-			const result = await db.deleteProduct();
-			console.log('Deleted: ', result.result.n);
+			const result = await db.deleteProduct(name);
+			console.log('Deleted: ', result);
 		} catch (error) {
 			console.log(error);
 		} finally {
@@ -199,7 +199,7 @@ const deleteProduct = () => {
 const buyProduct = () => {
 	questions.askingBuyProduct(async (userFirstName, productName) => {
 		try {
-			await db.addProductToShoppingCart({ userFirstName, productName });
+			await db.addProductToShoppingCart(userFirstName, productName);
 			console.log('Thanks for your purchase!!');
 		} catch (error) {
 			console.log(error);
@@ -215,7 +215,8 @@ const buyProduct = () => {
 const writeReview = () => {
 	questions.askingWriteReview(async (productName, review) => {
 		try {
-			await db.addReviewToProduct({ productName, review });
+			const result = await db.addReviewToProduct(productName, review);
+			console.log("REview added: ", result);
 		} catch (error) {
 			console.log(error);
 		} finally {
