@@ -5,10 +5,12 @@ class Database {
 
   //puedes implementar el constructor si vas a usarlo
   constructor(param) {
+    // parameters and properties always come here
+
     console.log(param);
     this.url = param.url;
     this.myDb = param.database;
-    // this.db = config;
+    
 
   }
 
@@ -24,15 +26,13 @@ class Database {
 
         this.database = await client.connect();
         console.log(this.database);
-        // we return it so everyone can use it
-        // return this.database;
+        
       }
     } catch (error) {
-      console.log(`${error} and connect doesn't work`);
-    } /* finally{
-// if all hell breaks loose we will close the connection to the DDBB
-      await client.close();
-    } */
+
+      console.log(`${error.message} and connect doesn't work`);
+
+    } 
   }
 
 
@@ -49,7 +49,7 @@ class Database {
       await this.connect();
       // Implement the query to insert a user
       const result = await this.database.db(this.myDb).collection('clients').insertOne(user);
-      console.log('it works!! ;)');
+      console.log('Insert user it works!! ;)');
       return result;
     } catch (error) {
       console.log(error);
@@ -62,8 +62,9 @@ class Database {
     try {
       await this.connect();
       // Implement the query to list users
-      console.log('it works!! ;)')
-      return [];
+      const result =  this.database.db(this.myDb).collection('clients').find();
+      console.log('List userit works!! ;)');
+      return result;
     } catch (error) {
       console.log(error);
     }

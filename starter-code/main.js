@@ -87,10 +87,11 @@ const insertUser = () => {
 const listUsers = async () => {
 	try {
 		const users = await db.listUsers();
-		console.log('List of users: ');
-		users.forEach((user) => {
-			console.dir(user);
+		console.log(`List of users: `);
+		users.forEach((user) => {	
+			(` ${user.firstName} ${user.lastName}`);
 		});
+		
 
 	} catch (error) {
 		console.log(error);
@@ -106,7 +107,7 @@ const deleteUser = () => {
 		try {
 
 			const result = await db.deleteUser();
-			console.log('Deleted: ', result.result.n);
+			console.log('Deleted: ', result);
 
 		} catch (error) {
 
