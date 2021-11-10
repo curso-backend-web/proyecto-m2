@@ -1,13 +1,16 @@
 import clear from 'clear';
-import { config } from './config.js';
+import  config  from './config.js';
 import Database from './database.js';
 import Questions from './questions.js';
 
+// instancia class Database to connect
 const db = new Database(config.mongo);
+// instance of class Questions, hence we could get to the methods and properties
 const questions = new Questions();
 
 const mainMenu = () => {
-	clear();
+	// look what it does
+//	clear();
 	questions.showMainMenu();
 	questions.typeAnOption(async (option) => {
 		switch (option) {
@@ -64,9 +67,9 @@ const usersMenu = () => {
 const insertUser = () => {
 	questions.askingInsertUser(async (user) => {
 		try {
-
-			const result = await db.insertUser();
-			console.log('Inserted: ', result.result.n);
+			console.log('User arrives here to be inserted')
+			const result = await db.insertUser(user);
+			console.log('Inserted: ', result);
 
 		} catch (error) {
 

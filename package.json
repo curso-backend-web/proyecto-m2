@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "clear": "^0.1.0",
+    "mongodb": "^4.1.4",
     "mysql2": "^2.3.3-rc.0"
   }
 }

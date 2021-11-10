@@ -1,19 +1,38 @@
+import { MongoClient } from "mongodb";
+import config from './config.js';
 
 class Database {
 
-//puedes implementar el constructor si vas a usarlo
+  //puedes implementar el constructor si vas a usarlo
+  constructor(param) {
+    console.log(param);
+    this.url = param.url;
+    this.myDb = param.database;
+    // this.db = config;
+
+  }
 
   async connect() {
     try {
       if (this.database) {
         return
       } else {
+        console.log('database connect works');
         //implementa aquí la conexión a la bbdd
-        this.database = //tu conexión;
+        // we make an instance of mongoclient that is going to connect to the database
+        const client = new MongoClient(this.url, { useNewUrlParser: true, useUnifiedTopology: true });
+
+        this.database = await client.connect();
+        console.log(this.database);
+        // we return it so everyone can use it
+        // return this.database;
       }
     } catch (error) {
-      console.log(error);
-    }
+      console.log(`${error} and connect doesn't work`);
+    } /* finally{
+// if all hell breaks loose we will close the connection to the DDBB
+      await client.close();
+    } */
   }
 
 
@@ -27,10 +46,11 @@ class Database {
 
   async insertUser(user) {
     try {
-      await this.connect;
+      await this.connect();
       // Implement the query to insert a user
-      // user is the document that we want to insert
-      console.log('it works!! ;)')
+      const result = await this.database.db(this.myDb).collection('clients').insertOne(user);
+      console.log('it works!! ;)');
+      return result;
     } catch (error) {
       console.log(error);
     }
@@ -40,7 +60,7 @@ class Database {
 
   async listUsers() {
     try {
-      await this.connect;
+      await this.connect();
       // Implement the query to list users
       console.log('it works!! ;)')
       return [];
@@ -51,7 +71,7 @@ class Database {
 
   async deleteUser(firstName) {
     try {
-      await this.connect;
+      await this.connect();
 
       // Implement the query to delete a user
       // firstName is the name of user that we want to delete
@@ -64,7 +84,7 @@ class Database {
 
   async insertProduct(product) {
     try {
-      await this.connect;
+      await this.connect();
 
       // Implement the query to insert a product
       // product is the document to insert
@@ -77,7 +97,7 @@ class Database {
 
   async listProducts() {
     try {
-      await this.connect;
+      await this.connect();
 
       // Implement the query to list all products
       console.log('it works!! ;)')
@@ -88,7 +108,7 @@ class Database {
 
   async deleteProduct(productName) {
     try {
-      await this.connect;
+      await this.connect();
 
       // Implement the query to delete a product
       // productName is the name of the producto to delete
@@ -100,7 +120,7 @@ class Database {
 
   async addProductToShoppingCart({ userFirstName, productName }) {
     try {
-      await this.connect;
+      await this.connect();
 
       // Implement the query to buy a product
       // userFirstName is the name of user who purchase the product
@@ -114,7 +134,7 @@ class Database {
 
   async addReviewToProduct({ productName, review }) {
     try {
-      await this.connect;
+      await this.connect();
       // Implement the query to review a product
       // productName is the name of the product to review
       // review is the document to insert
