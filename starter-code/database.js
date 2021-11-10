@@ -1,4 +1,7 @@
 
+import mysql from 'mysql2/promise';
+import {config} from './config.js';
+
 class Database {
 
 //puedes implementar el constructor si vas a usarlo
@@ -9,7 +12,8 @@ class Database {
         return
       } else {
         //implementa aquí la conexión a la bbdd
-        this.database = //tu conexión;
+        const db = this.database;
+        this.database = await mysql.createConnection(db)//tu conexión;
       }
     } catch (error) {
       console.log(error);
@@ -27,7 +31,7 @@ class Database {
 
   async insertUser(user) {
     try {
-      await this.connect;
+      await this.connect();
       // Implement the query to insert a user
       // user is the document that we want to insert
       console.log('it works!! ;)')
@@ -40,7 +44,7 @@ class Database {
 
   async listUsers() {
     try {
-      await this.connect;
+      await this.connect();
       // Implement the query to list users
       console.log('it works!! ;)')
       return [];
@@ -51,7 +55,7 @@ class Database {
 
   async deleteUser(firstName) {
     try {
-      await this.connect;
+      await this.connect();
 
       // Implement the query to delete a user
       // firstName is the name of user that we want to delete
@@ -64,7 +68,7 @@ class Database {
 
   async insertProduct(product) {
     try {
-      await this.connect;
+      await this.connect();
 
       // Implement the query to insert a product
       // product is the document to insert
