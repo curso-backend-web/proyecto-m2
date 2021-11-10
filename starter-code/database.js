@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-import config from './config.js';
+import {listUsers} from './main.js';
 
 class Database {
 
@@ -10,7 +10,8 @@ class Database {
     console.log(param);
     this.url = param.url;
     this.myDb = param.database;
-    
+    // to sparate later as raul taugh us
+    this.clients = 'clients';
 
   }
 
@@ -48,41 +49,58 @@ class Database {
     try {
       await this.connect();
       // Implement the query to insert a user
-      const result = await this.database.db(this.myDb).collection('clients').insertOne(user);
+      const result = await this.database.db(this.myDb).collection(this.clients).insertOne(user);
       console.log('Insert user it works!! ;)');
       return result;
     } catch (error) {
       console.log(error);
     }
 
-  }
+  };
 
 
   async listUsers() {
     try {
       await this.connect();
       // Implement the query to list users
-      const result =  this.database.db(this.myDb).collection('clients').find();
+      const result =  this.database.db(this.myDb).collection(this.clients).find();
       console.log('List userit works!! ;)');
       return result;
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   async deleteUser(firstName) {
     try {
       await this.connect();
-
+// more than one user?
+const myBool = this.findUsers(firstName);
       // Implement the query to delete a user
+      const result = await this.database.db(this.myDb).collection(this.clients).deleteOne({firstName: firstName});
       // firstName is the name of user that we want to delete
       console.log('it works!! ;)')
-      return {};
+      return ;
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
+  async findUsers(str){
+    
+    try {
+      await this.connect();
+      console.log('FindUsers works');
+      const result = await this.database.db(this.myDb).collection(this.clients).find({firstName: str});
+      // console.log
+      return result; 
+      
+    } catch (error) {
+
+      console.log(error.message)
+      
+    }
+  }
   async insertProduct(product) {
     try {
       await this.connect();
@@ -94,7 +112,7 @@ class Database {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   async listProducts() {
     try {
@@ -105,7 +123,7 @@ class Database {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   async deleteProduct(productName) {
     try {
@@ -117,7 +135,7 @@ class Database {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   async addProductToShoppingCart({ userFirstName, productName }) {
     try {
@@ -131,7 +149,7 @@ class Database {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   async addReviewToProduct({ productName, review }) {
     try {
@@ -143,7 +161,7 @@ class Database {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 }
 
 export default Database;

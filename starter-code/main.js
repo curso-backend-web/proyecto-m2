@@ -228,5 +228,8 @@ const writeReview = () => {
 	})
 }
 
+export default [
+	listUsers
+]
 
 mainMenu();
