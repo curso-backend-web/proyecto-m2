@@ -32,7 +32,7 @@ class Database {
 
   async close() {
     if (this.database) {
-      await this.database.close(true, callback);
+      await this.database.close();
     } else {
       return;
     }
@@ -126,20 +126,27 @@ class Database {
   async addProductToShoppingCart({ userFirstName, productName }) {
     try {
       await this.connect();
-      const col = this.database.collection('cliente');
-      const cliente = await col.find({ firstName: userFirstName }).toArray();
 
-      if (cliente.length > 0) {
+      const { _id } = await this.database
+        .collection('cliente')
+        .findOne({ firstName: userFirstName });
+      const _idCliente = _id;
+   
+      if (_idCliente) {
+        
+        let product = await this.database
+          .collection('producto')
+          .find({ name: productName},{projection:{_id:1}}).toArray();
+      
+        //Water Bottle
+        if (product.length) {
+      
+          const result = await this.database
+            .collection('cliente')
+            .updateOne({ '_id': _idCliente }, { $push: { shoppingCart: {$each: product} } });
 
-        const pipeline = [
-          { $match: { name: productName } },
-          { $project: { _id: 1 } }
-        ];
-        const colProd = this.database.collection('producto');
-        const idproduct = await colProd.aggregate(pipeline).toArray();
-
-
-        const result = await col.updateOne({ firstName: userFirstName }, { $push: { shoppingCart: idproduct } })
+        }
+        //   
 
         // Implement the query to buy a product
         // userFirstName is the name of user who purchase the product
@@ -156,7 +163,15 @@ class Database {
 
   async addReviewToProduct({ productName, review }) {
     try {
-      await this.connect;
+      await this.connect();
+      const { _id } = await this.database
+        .collection('producto')
+        .findOne({ name: productName });
+        if (_id) {
+          const result = await this.database
+          .collection('producto')
+          .updateOne({ '_id': _id }, { $push: { reviews:review }});
+        }
       // Implement the query to review a product
       // productName is the name of the product to review
       // review is the document to insert
