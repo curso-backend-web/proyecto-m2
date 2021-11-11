@@ -1,19 +1,25 @@
 
 import mysql from 'mysql2/promise';
-import {config} from './config.js';
+
 
 class Database {
 
-//puedes implementar el constructor si vas a usarlo
+  //puedes implementar el constructor si vas a usarlo
+
+  constructor(datosConexion) {
+
+    this.conn = datosConexion;
+
+  }
 
   async connect() {
     try {
       if (this.database) {
-        return
+        return;
       } else {
         //implementa aquí la conexión a la bbdd
         const db = this.database;
-        this.database = await mysql.createConnection(db)//tu conexión;
+        this.database = await mysql.createConnection(this.conn)//tu conexión;
       }
     } catch (error) {
       console.log(error);
@@ -31,10 +37,15 @@ class Database {
 
   async insertUser(user) {
     try {
+      console.log(user)
       await this.connect();
+
+      const [results, field, error] = await this.database.query("insert into eshop.clientes (firstName, lastName, dateBirth, street, city, state, postalCode) values (?,?,?,?,?,?,?)",[user.firstName, user.lastName, user.dateBirth, user.address.street, user.address.city, user.address.state, user.address.postalCode]);
       // Implement the query to insert a user
       // user is the document that we want to insert
+
       console.log('it works!! ;)')
+      return results;
     } catch (error) {
       console.log(error);
     }
@@ -45,9 +56,10 @@ class Database {
   async listUsers() {
     try {
       await this.connect();
+      const [results, field, error] = await this.database.query("select * from clientes");
       // Implement the query to list users
       console.log('it works!! ;)')
-      return [];
+      return results;
     } catch (error) {
       console.log(error);
     }
@@ -56,11 +68,12 @@ class Database {
   async deleteUser(firstName) {
     try {
       await this.connect();
-
+      
+      const [results, field, error] = await this.database.query("DELETE FROM clientes WHERE clientes.firstName=?",[firstName]);
       // Implement the query to delete a user
       // firstName is the name of user that we want to delete
       console.log('it works!! ;)')
-      return {};
+      return results;
     } catch (error) {
       console.log(error);
     }

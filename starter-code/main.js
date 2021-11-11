@@ -65,8 +65,8 @@ const insertUser = () => {
 	questions.askingInsertUser(async (user) => {
 		try {
 
-			const result = await db.insertUser();
-			console.log('Inserted: ', result.result.n);
+			const result = await db.insertUser(user);
+			console.log('Inserted: ', result);
 
 		} catch (error) {
 
@@ -102,8 +102,8 @@ const deleteUser = () => {
 	questions.askingForDeleteUser(async (userName) => {
 		try {
 
-			const result = await db.deleteUser();
-			console.log('Deleted: ', result.result.n);
+			const result = await db.deleteUser(userName);
+			console.log('Deleted: ', result);
 
 		} catch (error) {
 
