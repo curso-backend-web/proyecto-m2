@@ -3,7 +3,7 @@ import { config } from './config.js';
 import Database from './database.js';
 import Questions from './questions.js';
 
-const db = new Database(config.mongo);
+const db = new Database(config.mySQL);
 const questions = new Questions();
 
 const mainMenu = () => {
@@ -65,8 +65,8 @@ const insertUser = () => {
 	questions.askingInsertUser(async (user) => {
 		try {
 
-			const result = await db.insertUser();
-			console.log('Inserted: ', result.result.n);
+			const result = await db.insertUser(user);
+			console.log('Inserted: ', result);
 
 		} catch (error) {
 
@@ -102,8 +102,8 @@ const deleteUser = () => {
 	questions.askingForDeleteUser(async (userName) => {
 		try {
 
-			const result = await db.deleteUser();
-			console.log('Deleted: ', result.result.n);
+			const result = await db.deleteUser(userName);
+			console.log('Deleted: ', result);
 
 		} catch (error) {
 
