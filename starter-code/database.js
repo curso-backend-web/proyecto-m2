@@ -11,7 +11,8 @@ class Database {
     this.url = param.url;
     this.myDb = param.database;
     // to sparate later as raul taugh us
-    this.clients = 'clients';
+    this.clients  = 'clients';
+    this.products = 'products';
 
   }
 
@@ -98,14 +99,16 @@ class Database {
   }
   async insertProduct(product) {
     try {
+
       await this.connect();
-
-      // Implement the query to insert a product
       // product is the document to insert
-      console.log('it works!! ;)')
-
+      console.log('it works!! ;)');
+      // Implement the query to insert a product
+      return this.database.db(this.myDb).collection(this.products).insertOne(product);
+      
     } catch (error) {
-      console.log(error);
+
+      console.log(error.message);
     }
   };
 
@@ -115,20 +118,24 @@ class Database {
 
       // Implement the query to list all products
       console.log('it works!! ;)')
+      return this.database.db(this.myDb).collection(this.products).find();
+
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 
   async deleteProduct(productName) {
-    try {
-      await this.connect();
 
+    try {
+
+      await this.connect();
       // Implement the query to delete a product
-      // productName is the name of the producto to delete
-      console.log('it works!! ;)')
+      return await this.database.db(this.myDb).collection(this.products).deleteOne({name:productName});
+
     } catch (error) {
-      console.log(error);
+
+      console.log(error.message);
     }
   };
 

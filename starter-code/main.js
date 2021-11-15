@@ -67,15 +67,16 @@ const usersMenu = () => {
 const insertUser = () => {
 	questions.askingInsertUser(async (user) => {
 		try {
-			console.log('User arrives here to be inserted')
+			
 			const result = await db.insertUser(user);
 			console.log('Inserted: ', result);
 
 		} catch (error) {
 
-			console.log(error);
+			console.log(error.message);
 
 		} finally {
+
 			questions.continue(() => {
 				usersMenu();
 			});
@@ -86,17 +87,22 @@ const insertUser = () => {
 
 const listUsers = async () => {
 	try {
+
 		const users = await db.listUsers();
-		//const listUsers = []
+		
 		await users.forEach((user) => {	
-			console.log(` ${user.firstName} ${user.lastName}`);
-			// listUsers.push(` ${user.firstName} ${user.lastName}`);
+
+			console.log(user);
+			
 		});
-		// console.log(`List of users: ${listUsers.map((el) => el)} `);
+		
 
 	} catch (error) {
-		console.log(error);
+
+		console.log(error.message);
+
 	} finally {
+
 		questions.continue(() => {
 			usersMenu();
 		});
@@ -106,14 +112,13 @@ const listUsers = async () => {
 const deleteUser = async () => {
 	questions.askingForDeleteUser(async (userName) => {
 		try {
-			console.log(`${userName.lastName} ${userName.firstName} @main.js`)
+			
 			const result = await db.deleteUser(userName);
-			console.log(`User arrives here to be deleted ${userName.firstName} ${userName.lastName}`)
 			console.log('Deleted: ', result);
 
 		} catch (error) {
 
-			console.log(error);
+			console.log(error.message);
 
 		} finally {
 			questions.continue(() => {
@@ -154,10 +159,13 @@ const productMenu = () => {
 const insertProduct = () => {
 	questions.askingInsertProduct(async (product) => {
 		try {
+
 			const result = await db.insertProduct(product);
-			console.log('Inserted: ', result.result.n);
+			console.log('Inserted: ', result);
+
 		} catch (error) {
-			console.log(error);
+
+			console.log(error.message);
 		}
 		finally {
 			questions.continue(() => {
@@ -188,8 +196,8 @@ const listProducts = async () => {
 const deleteProduct = () => {
 	questions.askingForDeleteProduct(async (name) => {
 		try {
-			const result = await db.deleteProduct();
-			console.log('Deleted: ', result.result.n);
+			const result = await db.deleteProduct(name);
+			console.log('Deleted: ', result);
 		} catch (error) {
 			console.log(error);
 		} finally {
