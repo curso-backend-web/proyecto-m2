@@ -78,8 +78,15 @@ class Questions {
 	}
 
 	askingForDeleteUser(callback = (answer) => {} ){
-		this.rl.question('Type the name of the user: ', (answer) => {
-			callback(answer);
+		this.rl.question('Type the first name of the user: ', (firstName) => {
+			this.rl.question('Type the last name of the user: ', (lastName) => {
+				const user = {
+					firstName,
+					lastName
+				};
+				callback(user);
+			})
+			
 		});
 	}
 

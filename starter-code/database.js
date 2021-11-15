@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-import {listUsers} from './main.js';
+import listUsers from './main.js';
 
 class Database {
 
@@ -71,28 +71,31 @@ class Database {
     }
   };
 
-  async deleteUser(firstName) {
+  async deleteUser(userName) {
     try {
+      console.log(`${userName.firstName} ${userName.lastName} @deleteUser Database`);
+      
       await this.connect();
-// more than one user?
-const myBool = this.findUsers(firstName);
+// more than one user with same firstname?
       // Implement the query to delete a user
-      const result = await this.database.db(this.myDb).collection(this.clients).deleteOne({firstName: firstName});
+      const query = {firstName: userName.firstName, lastName: userName.lastName}
+     const result = await this.database.db(this.myDb).collection(this.clients).deleteOne(query);
       // firstName is the name of user that we want to delete
-      console.log('it works!! ;)')
-      return ;
+      console.log('Delete Users @database it works!! ;)');
+      return result;
+
     } catch (error) {
       console.log(error);
     }
   };
 
-  async findUsers(str){
+  async findUsers(userName){
     
     try {
       await this.connect();
       console.log('FindUsers works');
-      const result = await this.database.db(this.myDb).collection(this.clients).find({firstName: str});
-      // console.log
+      const result = await this.database.db(this.myDb).collection(this.clients).find({firstName: userName.firstName, lastName: userName.lastName});
+       console.log(result);
       return result; 
       
     } catch (error) {

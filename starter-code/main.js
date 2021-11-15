@@ -87,11 +87,12 @@ const insertUser = () => {
 const listUsers = async () => {
 	try {
 		const users = await db.listUsers();
-		console.log(`List of users: `);
-		users.forEach((user) => {	
-			(` ${user.firstName} ${user.lastName}`);
+		//const listUsers = []
+		await users.forEach((user) => {	
+			console.log(` ${user.firstName} ${user.lastName}`);
+			// listUsers.push(` ${user.firstName} ${user.lastName}`);
 		});
-		
+		// console.log(`List of users: ${listUsers.map((el) => el)} `);
 
 	} catch (error) {
 		console.log(error);
@@ -102,11 +103,12 @@ const listUsers = async () => {
 	}
 }
 
-const deleteUser = () => {
+const deleteUser = async () => {
 	questions.askingForDeleteUser(async (userName) => {
 		try {
-
-			const result = await db.deleteUser();
+			console.log(`${userName.lastName} ${userName.firstName} @main.js`)
+			const result = await db.deleteUser(userName);
+			console.log(`User arrives here to be deleted ${userName.firstName} ${userName.lastName}`)
 			console.log('Deleted: ', result);
 
 		} catch (error) {

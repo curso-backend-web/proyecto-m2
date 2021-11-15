@@ -9,7 +9,7 @@ const config = {
         database: env.DB_NAME || 'eShop'
     },
     mongo:{
-        url: env.DB_URL || 'mongodb://localhost:27017/eShop',
+        url: env.DB_URL || 'mongodb://localhost:27017',
         database: env.DB_NAME || 'eShop'
     },
 };
