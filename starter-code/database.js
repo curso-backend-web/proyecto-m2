@@ -101,8 +101,6 @@ class Database {
     try {
 
       await this.connect();
-      // product is the document to insert
-      console.log('it works!! ;)');
       // Implement the query to insert a product
       return this.database.db(this.myDb).collection(this.products).insertOne(product);
       
@@ -114,13 +112,13 @@ class Database {
 
   async listProducts() {
     try {
-      await this.connect();
 
+      await this.connect();
       // Implement the query to list all products
-      console.log('it works!! ;)')
       return this.database.db(this.myDb).collection(this.products).find();
 
     } catch (error) {
+      
       console.log(error.message);
     }
   };
