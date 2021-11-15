@@ -49,11 +49,11 @@ class Database {
     try {
       await this.connect();
       // Implement the query to insert a user
-      const result = await this.database.db(this.myDb).collection(this.clients).insertOne(user);
-      console.log('Insert user it works!! ;)');
-      return result;
+      return await this.database.db(this.myDb).collection(this.clients).insertOne(user);
+     
     } catch (error) {
-      console.log(error);
+
+      console.log(error.message);
     }
 
   };
@@ -63,29 +63,23 @@ class Database {
     try {
       await this.connect();
       // Implement the query to list users
-      const result =  this.database.db(this.myDb).collection(this.clients).find();
-      console.log('List userit works!! ;)');
-      return result;
+      return this.database.db(this.myDb).collection(this.clients).find();
+      
     } catch (error) {
-      console.log(error);
+
+      console.log(error.message);
     }
   };
 
   async deleteUser(userName) {
     try {
-      console.log(`${userName.firstName} ${userName.lastName} @deleteUser Database`);
-      
       await this.connect();
-// more than one user with same firstname?
-      // Implement the query to delete a user
-      const query = {firstName: userName.firstName, lastName: userName.lastName}
-     const result = await this.database.db(this.myDb).collection(this.clients).deleteOne(query);
-      // firstName is the name of user that we want to delete
-      console.log('Delete Users @database it works!! ;)');
-      return result;
-
+      // Implement the query to delete users
+     return await this.database.db(this.myDb).collection(this.clients).deleteOne({firstName: userName.firstName, lastName: userName.lastName});
+     
     } catch (error) {
-      console.log(error);
+      
+      console.log(error.message);
     }
   };
 
@@ -93,10 +87,8 @@ class Database {
     
     try {
       await this.connect();
-      console.log('FindUsers works');
-      const result = await this.database.db(this.myDb).collection(this.clients).find({firstName: userName.firstName, lastName: userName.lastName});
-       console.log(result);
-      return result; 
+      
+      return this.database.db(this.myDb).collection(this.clients).find({firstName: userName.firstName, lastName: userName.lastName});
       
     } catch (error) {
 
