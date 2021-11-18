@@ -66,7 +66,8 @@ class Questions {
 										firstName,
 										lastName,
 										dateBirth: new Date(),
-										address: { street, city, state, postalCode }
+										address: { street, city, state, postalCode },
+										shoppingCart: []
 									};
 								callback(user);
 							})

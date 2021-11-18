@@ -24,6 +24,72 @@ use('eShop');
         }
     
 }); */ 
+/* db.createCollection('clients', {
+
+    validator:{
+        $jsonSchema: {
+            // validaciones collection
+            bsonType: "object",
+            required: ["_id","firstName","lastName"],
+             additionalProperties: true,
+            properties: { // como hariamos en typeScript, declaramos el tipado
+                _id: {
+                       bsonType: "objectId"
+                   },
+                firstName: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                lastName: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                address: {
+                    bsonType: "object",
+                    description: "Array of objects.",
+                    properties: {
+                        streetAddress: {
+                            bsonType: "string",
+                            description: "must be a string and is required"
+                        },
+                        city: {
+                            bsonType: "string",
+                            description: "must be a string and is required"
+                        },
+                        state: {
+                            bsonType: "string",
+                            description: "must be a string and is not required"
+                        },
+                        postalCode: {
+                            bsonType: "string",
+                            description: "must be a string and is required"
+                        }
+                        
+                    }
+
+                },
+                shoppingCart: {
+                    bsonType: "array",
+                    description: "Empty shoppingcart to be fullfilled with products"
+                }
+
+                }
+            }
+        }
+    
+}); */
+/* db.clients.insertOne({
+     firstName : "John",
+    lastName : "Wick",
+    dateBirth : "2021-11-15T18:43:07.351Z",
+    address : {
+        street : "Fellony125",
+        city : "New York",
+        state : "NY",
+        postalCode : "08125"
+    },
+    shoppingCart: []
+}) */
  /* db.createCollection('clients', {
 
     validator:{
@@ -66,14 +132,14 @@ use('eShop');
                          postalCode: {
                             bsonType: "string",
                             description: "must be a string if the field exists"
-                         },
+                         }
                      }
                  }
                 }
             }
         }
     
-});  */
+}); */ 
 /* db.createCollection('products', {
 
     validator:{
@@ -81,7 +147,7 @@ use('eShop');
             // validaciones collection
             bsonType: "object",
             required: ["_id", "name" ,"description", "category", "price"],// que campos son obligatorios
-            additionalProperties: false,
+            additionalProperties: true,
             properties: { // como hariamos en typeScript, declaramos el tipado
                 _id: {
                     bsonType: "objectId"
@@ -115,7 +181,7 @@ use('eShop');
             // validaciones collection
             bsonType: "object",
             required: ["_id", "name" ,"comment", "stars", "date"],// que campos son obligatorios
-            additionalProperties: false,
+            additionalProperties: true,
             properties: { // como hariamos en typeScript, declaramos el tipado
                 _id: {
                     bsonType: "objectId"
@@ -142,3 +208,5 @@ use('eShop');
     }
 }) */
 // db.clients.drop();
+// db.reviews.drop();
+// https://docs.mongodb.com/manual/reference/method/Mongo/#Mongo
