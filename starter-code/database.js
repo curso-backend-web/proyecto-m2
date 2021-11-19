@@ -122,7 +122,18 @@ class Database {
       console.log(error.message);
     }
   };
+  async findProduct(productName) {
+    try {
+      await this.connect();
+      
+      return this.database.db(this.myDb).collection(this.products).find({name: productName});
+      
+    } catch (error) {
 
+      console.log(error.message)
+      
+    }
+  }
   async deleteProduct(productName) {
 
     try {
@@ -140,12 +151,16 @@ class Database {
   async addProductToShoppingCart({ userFirstName, productName }) {
     try {
       await this.connect();
-
+      // user
+      const {user} = await this.database.db(this.myDb).collection(this.clients).findOne({firstName: userFirstName});
+      console.log(JSON.stringify(user));
+      // const product = await this.findProduct(productName);
+      // console.log(product.price)
       // Implement the query to buy a product
       // userFirstName is the name of user who purchase the product
       // productName is the name of the product that we want to buy
       // Think if you may need to implement two queries chained
-      console.log('it works!! ;)')
+      console.log('add shopping it works!! ;)')
     } catch (error) {
       console.log(error);
     }

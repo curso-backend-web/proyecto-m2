@@ -211,7 +211,7 @@ const deleteProduct = () => {
 const buyProduct = () => {
 	questions.askingBuyProduct(async (userFirstName, productName) => {
 		try {
-			await db.addProductToShoppingCart({ userFirstName, productName });
+			await db.addProductToShoppingCart( userFirstName, productName );
 			console.log('Thanks for your purchase!!');
 		} catch (error) {
 			console.log(error);

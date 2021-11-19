@@ -65,7 +65,7 @@ class Questions {
 								const user = {
 										firstName,
 										lastName,
-										dateBirth: new Date(),
+										dateBirth: this.getDate(),
 										address: { street, city, state, postalCode },
 										shoppingCart: []
 									};
@@ -101,6 +101,7 @@ class Questions {
 								description,
 								price: parseFloat(price),
 								category: category,
+								reviews: []
 							};
 						callback(product);
 					})
@@ -128,13 +129,18 @@ class Questions {
 			this.rl.question('Write a name: ', (name) => {
 				this.rl.question('Write a comment: ', (comment) => {
 					this.rl.question('Choose between 1-5: ', (stars) => {
-						let review = {name, comment, stars, date: new Date()};
+						let review = {name, comment, stars, date: this.getDate()};
 						callback(product, review);
 					});
 				});
 			});
 		});
 
+	}
+	getDate(){
+		const date = new Date();
+		const localeDate = date.toLocaleString('es-ES', {hour12: false});
+		return localeDate;
 	}
 }
 

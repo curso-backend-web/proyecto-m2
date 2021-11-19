@@ -18,31 +18,6 @@ use('eShop');
                 lastName: {
                     bsonType: "string",
                     description: "must be a string and is required"
-                } 
-                }
-            }
-        }
-    
-}); */ 
-/* db.createCollection('clients', {
-
-    validator:{
-        $jsonSchema: {
-            // validaciones collection
-            bsonType: "object",
-            required: ["_id","firstName","lastName"],
-             additionalProperties: true,
-            properties: { // como hariamos en typeScript, declaramos el tipado
-                _id: {
-                       bsonType: "objectId"
-                   },
-                firstName: {
-                    bsonType: "string",
-                    description: "must be a string and is required"
-                },
-                lastName: {
-                    bsonType: "string",
-                    description: "must be a string and is required"
                 },
                 address: {
                     bsonType: "object",
@@ -90,56 +65,6 @@ use('eShop');
     },
     shoppingCart: []
 }) */
- /* db.createCollection('clients', {
-
-    validator:{
-        $jsonSchema: {
-            // validaciones collection
-            bsonType: "object",
-            required: ["_id","firstName","lastName"],
-             additionalProperties: true,
-            properties: { // como hariamos en typeScript, declaramos el tipado
-                _id: {
-                       bsonType: "objectId"
-                   },
-                firstName: {
-                    bsonType: "string",
-                    description: "must be a string and is required"
-                },
-                lastName: {
-                    bsonType: "string",
-                    description: "must be a string and is required"
-                },
-                dateBirth: {
-                    bsonType: "string",
-                    description: "has changed to a string. Not required"
-                },
-                 address: {
-                     bsonType: "object",
-                     properties: {
-                         streetAddress: {
-                            bsonType: "string",
-                            description: "must be a string if the field exists"
-                         },
-                         city: {
-                            bsonType: "string",
-                            description: "must be a string if the field exists"
-                         },
-                         state: {
-                            bsonType: "string",
-                            description: "must be a string if the field exists"
-                         },
-                         postalCode: {
-                            bsonType: "string",
-                            description: "must be a string if the field exists"
-                         }
-                     }
-                 }
-                }
-            }
-        }
-    
-}); */ 
 /* db.createCollection('products', {
 
     validator:{
@@ -164,6 +89,10 @@ use('eShop');
                     bsonType: "string",
                     description: "must be a string and is required"
                 },
+                reviews:{
+                    bsonType: "array",
+                    description: "Array of Objects",
+                },
                 price: {
                     bsonType: "double",
                     minimum: 0,
@@ -173,7 +102,14 @@ use('eShop');
             }
         }
     }
-})  */
+}); */
+/* db.products.insertOne({
+     name : "Juanola",
+    description : "Pastillas Juanola, licorice pills against coughing",
+    category : "natural remedies",
+    reviews : [],
+    price: 9.95
+}) */
 /* db.createCollection('reviews', {
 
     validator:{
@@ -208,5 +144,6 @@ use('eShop');
     }
 }) */
 // db.clients.drop();
+// db.products.drop();
 // db.reviews.drop();
 // https://docs.mongodb.com/manual/reference/method/Mongo/#Mongo
