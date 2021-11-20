@@ -148,11 +148,14 @@ class Database {
     }
   };
 
-  async addProductToShoppingCart({ userFirstName, productName }) {
+  async addProductToShoppingCart( userFirstName, productName ) {
     try {
       await this.connect();
-      // user
-      const {user} = await this.database.db(this.myDb).collection(this.clients).findOne({firstName: userFirstName});
+      // user or user
+      const user = await this.database.db(this.myDb).collection(this.clients).find({firstName: userFirstName}).toArray();
+      // if many create function to ask surname in console.
+      
+      // user = user.toArray()
       console.log(JSON.stringify(user));
       // const product = await this.findProduct(productName);
       // console.log(product.price)
