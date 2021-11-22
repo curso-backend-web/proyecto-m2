@@ -92,6 +92,29 @@ use('eShop');
                 reviews:{
                     bsonType: "array",
                     description: "Array of Objects",
+                    properties: {
+                         _id: {
+                    bsonType: "objectId"
+                },
+                name: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                comment: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                stars: {
+                    bsonType: "double",
+                    description: "must be a number and is required"
+                    min: 1,
+                    max: 5
+                },
+                date: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                }
+                }// end array
                 },
                 price: {
                     bsonType: "double",
@@ -106,9 +129,9 @@ use('eShop');
 /* db.products.insertOne({
      name : "Juanola",
     description : "Pastillas Juanola, licorice pills against coughing",
-    category : "natural remedies",
-    reviews : [],
-    price: 9.95
+    category : "Natural remedies",
+    reviews: [],
+    price: 5.95
 }) */
 /* db.createCollection('reviews', {
 

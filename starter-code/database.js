@@ -153,14 +153,17 @@ class Database {
   }
 
   async addProductToShoppingCart(userFirstName, productName) {
+    const textError = 'User not in the DDBB';
     try {
       await this.connect();
       // it might change the data, so no const
-      let user = await this.database
+      const user = await this.database
         .db(this.myDb)
         .collection(this.clients)
         .find({ firstName: userFirstName })
         .toArray();
+
+      if(!user.length) throw new Error(textError)
 
       const product = await this.findProduct(productName);
 
@@ -168,32 +171,26 @@ class Database {
       if (user.length > 1) {
         const userLastName = await this.startQuestion();
 
-        user = await this.database
-          .db(this.myDb)
-          .collection(this.clients)
-          .find({ firstName: userFirstName, lastName: userLastName })
-          .toArray();
+        const userTwo = await this.database.db(this.myDb)
+                                           .collection(this.clients)
+                                           .find({ firstName: userFirstName, lastName: userLastName }).toArray();
+          
+         if(userTwo.length) {
+           await this.database.db(this.myDb).collection(this.clients)
+          .updateOne({ firstName: userFirstName, lastName: userLastName }, { $push: { shoppingCart: { $each: product }}});
+       
+         } else{
 
-        const result = await this.database
-          .db(this.myDb)
-          .collection(this.clients)
-          .updateOne(
-            { firstName: userFirstName, lastName: userLastName },
-            { $push: { shoppingCart: { $each: product } } }
-          );
-        console.log(result);
+          throw new Error(textError);
+         }
+        
       } else {
-        const result = await this.database
-          .db(this.myDb)
-          .collection(this.clients)
-          .updateOne(
-            { firstName: userFirstName },
-            { $push: { shoppingCart: { $each: product } } }
-          );
-        console.log(result);
+
+         await this.database.db(this.myDb).collection(this.clients)
+          .updateOne({ firstName: userFirstName },{ $push: { shoppingCart: { $each: product }}});
+        
       }
     } catch (error) {
-      3;
 
       console.log(error.message);
     }
@@ -211,15 +208,23 @@ class Database {
     this.rl.close();
     return lastName;
   }
-  async addReviewToProduct({ productName, review }) {
+  async addReviewToProduct(productName, review) {
     try {
       await this.connect();
-      // Implement the query to review a product
-      // productName is the name of the product to review
-      // review is the document to insert
-      console.log("it works!! ;)");
+     const product = await this.findProduct(productName);
+    console.log(JSON.stringify(product))
+      if(product.length){
+        const result = await this.database.db(this.myDb)
+                                          .collection(this.products)
+                                          .updateOne({name:productName}, {$push: {reviews: review}})
+        console.log(result + ' ' + 'and all good at the end');
+      } else {
+        
+        throw new Error(`No such product in DDBB`);
+      }
+      console.log("add review it works!! ;)");
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   }
 }
