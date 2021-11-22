@@ -160,16 +160,11 @@ class Database {
       await this.connect();
       // user or user
       // needs revision fro dam rl!!
-      const user = await this.database.db(this.myDb).collection(this.clients).find({firstName: userFirstName}).toArray();
+      let user = await this.database.db(this.myDb).collection(this.clients).find({firstName: userFirstName}).toArray();
       // if many create function to ask surname in console.
       console.log(user);
-      // if there is a user
-      
-  // rl doesn't allow me to introduce the question here!! 
-      // if I use util everything stops in there
-      // I don't want to touch questions, but it seems the only place to do it
-      // damm it
-      if (user){
+      const product =  await this.findProduct(productName);
+      /* if (user){
       const product =  await this.findProduct(productName);
       console.log((product));
       if(product.length > 0) {
@@ -180,17 +175,40 @@ class Database {
       }
     } else{
       console.log('Something I messed up or user doesn´t exist')
-    }
-      // Implement the query to buy a product
-      // userFirstName is the name of user who purchase the product
-      // productName is the name of the product that we want to buy
-      // Think if you may need to implement two queries chained
+    } */
+    if (user.length > 1) {
+      const userLastName = await this.startQuestion() 
+     user = await this.database.db(this.myDb).collection(this.clients).find({firstName: userFirstName, lastName: userLastName }).toArray();
+
+      console.log(userLastName);
+      console.log(user);
+      const result = await this.database.db(this.myDb)
+                                        .collection(this.clients)
+                                        .updateOne({firstName: userFirstName, lastName:userLastName}, {$push: {shoppingCart: {$each: product}}});
+      console.log(result);
+  } else {
+    const result = await this.database.db(this.myDb)
+                                      .collection(this.clients)
+                                      .updateOne({firstName: userFirstName}, {$push: {shoppingCart: {$each: product}}});
+      console.log(result);
+  }
+  
       console.log('add shopping it works!! ;)')
     } catch (error) {
       console.log(error);
     }
   };
-    
+  // rl working with async!
+  askMe(insertedQuestion){
+    return new Promise((res, rej) => {
+      this.rl.question(insertedQuestion, (input) => res(input))
+    })
+  }  
+  async startQuestion(){
+    const lastName = await this.askMe('User´s last name: ')
+    this.rl.close();
+    return lastName;
+  }
   async addReviewToProduct({ productName, review }) {
     try {
       await this.connect();
