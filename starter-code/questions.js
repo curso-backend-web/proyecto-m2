@@ -116,7 +116,7 @@ class Questions {
 		});
 	}
 
-	askingBuyProduct(callback = (user, product) => {}){
+	askingBuyProduct(callback = (userFirst, userLast, product) => {}){
 		this.rl.question('Who is the buyer?: ', (user) => {
 			this.rl.question('Product that you want to buy: ', (product) => {
 				callback(user, product);

@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-import listUsers from './main.js';
+import readline from 'readline';
 
 class Database {
 
@@ -7,13 +7,20 @@ class Database {
   constructor(param) {
     // parameters and properties always come here
 
-    console.log(param);
-    this.url = param.url;
+    this.url  = param.url;
     this.myDb = param.database;
+
     // to sparate later as raul taugh us
     this.clients  = 'clients';
     this.products = 'products';
+    this.reviews  = 'reviews'
 
+    // questions if users more than one
+    this.rl = readline.createInterface({
+  		input: process.stdin,
+  		output: process.stdout
+		});
+  
   }
 
   async connect() {
@@ -126,7 +133,7 @@ class Database {
     try {
       await this.connect();
       
-      return this.database.db(this.myDb).collection(this.products).find({name: productName});
+      return this.database.db(this.myDb).collection(this.products).find({name: productName},{projection:{_id:1, name:1, price:1}}).toArray();
       
     } catch (error) {
 
@@ -152,13 +159,28 @@ class Database {
     try {
       await this.connect();
       // user or user
+      // needs revision fro dam rl!!
       const user = await this.database.db(this.myDb).collection(this.clients).find({firstName: userFirstName}).toArray();
       // if many create function to ask surname in console.
+      console.log(user);
+      // if there is a user
       
-      // user = user.toArray()
-      console.log(JSON.stringify(user));
-      // const product = await this.findProduct(productName);
-      // console.log(product.price)
+  // rl doesn't allow me to introduce the question here!! 
+      // if I use util everything stops in there
+      // I don't want to touch questions, but it seems the only place to do it
+      // damm it
+      if (user){
+      const product =  await this.findProduct(productName);
+      console.log((product));
+      if(product.length > 0) {
+        const result = await this.database.db(this.myDb)
+                                        .collection(this.clients)
+                                        .updateOne({firstName: userFirstName}, {$push: {shoppingCart: {$each: product}}});
+      console.log(result)
+      }
+    } else{
+      console.log('Something I messed up or user doesn´t exist')
+    }
       // Implement the query to buy a product
       // userFirstName is the name of user who purchase the product
       // productName is the name of the product that we want to buy
@@ -168,7 +190,7 @@ class Database {
       console.log(error);
     }
   };
-
+    
   async addReviewToProduct({ productName, review }) {
     try {
       await this.connect();

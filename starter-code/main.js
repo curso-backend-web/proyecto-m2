@@ -227,7 +227,7 @@ const buyProduct = () => {
 const writeReview = () => {
 	questions.askingWriteReview(async (productName, review) => {
 		try {
-			await db.addReviewToProduct({ productName, review });
+			await db.addReviewToProduct(productName, review);
 		} catch (error) {
 			console.log(error);
 		} finally {
