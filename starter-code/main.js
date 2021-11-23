@@ -1,13 +1,16 @@
 import clear from 'clear';
-import { config } from './config.js';
+import  config  from './config.js';
 import Database from './database.js';
 import Questions from './questions.js';
 
+// instancia class Database to connect
 const db = new Database(config.mongo);
+// instance of class Questions, hence we could get to the methods and properties
 const questions = new Questions();
 
 const mainMenu = () => {
-	clear();
+	// look what it does
+//	clear();
 	questions.showMainMenu();
 	questions.typeAnOption(async (option) => {
 		switch (option) {
@@ -64,15 +67,16 @@ const usersMenu = () => {
 const insertUser = () => {
 	questions.askingInsertUser(async (user) => {
 		try {
-
-			const result = await db.insertUser();
-			console.log('Inserted: ', result.result.n);
+			
+			const result = await db.insertUser(user);
+			console.log('Inserted: ', result);
 
 		} catch (error) {
 
-			console.log(error);
+			console.log(error.message);
 
 		} finally {
+
 			questions.continue(() => {
 				usersMenu();
 			});
@@ -83,31 +87,38 @@ const insertUser = () => {
 
 const listUsers = async () => {
 	try {
+
 		const users = await db.listUsers();
-		console.log('List of users: ');
-		users.forEach((user) => {
-			console.dir(user);
+		
+		await users.forEach((user) => {	
+
+			console.log(user);
+			
 		});
+		
 
 	} catch (error) {
-		console.log(error);
+
+		console.log(error.message);
+
 	} finally {
+
 		questions.continue(() => {
 			usersMenu();
 		});
 	}
 }
 
-const deleteUser = () => {
+const deleteUser = async () => {
 	questions.askingForDeleteUser(async (userName) => {
 		try {
-
-			const result = await db.deleteUser();
-			console.log('Deleted: ', result.result.n);
+			
+			const result = await db.deleteUser(userName);
+			console.log('Deleted: ', result);
 
 		} catch (error) {
 
-			console.log(error);
+			console.log(error.message);
 
 		} finally {
 			questions.continue(() => {
@@ -148,10 +159,13 @@ const productMenu = () => {
 const insertProduct = () => {
 	questions.askingInsertProduct(async (product) => {
 		try {
+
 			const result = await db.insertProduct(product);
-			console.log('Inserted: ', result.result.n);
+			console.log('Inserted: ', result);
+
 		} catch (error) {
-			console.log(error);
+
+			console.log(error.message);
 		}
 		finally {
 			questions.continue(() => {
@@ -182,8 +196,8 @@ const listProducts = async () => {
 const deleteProduct = () => {
 	questions.askingForDeleteProduct(async (name) => {
 		try {
-			const result = await db.deleteProduct();
-			console.log('Deleted: ', result.result.n);
+			const result = await db.deleteProduct(name);
+			console.log('Deleted: ', result);
 		} catch (error) {
 			console.log(error);
 		} finally {
@@ -197,7 +211,7 @@ const deleteProduct = () => {
 const buyProduct = () => {
 	questions.askingBuyProduct(async (userFirstName, productName) => {
 		try {
-			await db.addProductToShoppingCart({ userFirstName, productName });
+			await db.addProductToShoppingCart( userFirstName, productName );
 			console.log('Thanks for your purchase!!');
 		} catch (error) {
 			console.log(error);
@@ -213,7 +227,7 @@ const buyProduct = () => {
 const writeReview = () => {
 	questions.askingWriteReview(async (productName, review) => {
 		try {
-			await db.addReviewToProduct({ productName, review });
+			await db.addReviewToProduct(productName, review);
 		} catch (error) {
 			console.log(error);
 		} finally {
@@ -224,5 +238,8 @@ const writeReview = () => {
 	})
 }
 
+export default [
+	listUsers
+]
 
 mainMenu();

@@ -65,8 +65,9 @@ class Questions {
 								const user = {
 										firstName,
 										lastName,
-										dateBirth: new Date(),
-										address: { street, city, state, postalCode }
+										dateBirth: this.getDate(),
+										address: { street, city, state, postalCode },
+										shoppingCart: []
 									};
 								callback(user);
 							})
@@ -78,8 +79,15 @@ class Questions {
 	}
 
 	askingForDeleteUser(callback = (answer) => {} ){
-		this.rl.question('Type the name of the user: ', (answer) => {
-			callback(answer);
+		this.rl.question('Type the first name of the user: ', (firstName) => {
+			this.rl.question('Type the last name of the user: ', (lastName) => {
+				const user = {
+					firstName,
+					lastName
+				};
+				callback(user);
+			})
+			
 		});
 	}
 
@@ -93,6 +101,7 @@ class Questions {
 								description,
 								price: parseFloat(price),
 								category: category,
+								reviews: []
 							};
 						callback(product);
 					})
@@ -107,7 +116,7 @@ class Questions {
 		});
 	}
 
-	askingBuyProduct(callback = (user, product) => {}){
+	askingBuyProduct(callback = (userFirst, userLast, product) => {}){
 		this.rl.question('Who is the buyer?: ', (user) => {
 			this.rl.question('Product that you want to buy: ', (product) => {
 				callback(user, product);
@@ -120,13 +129,18 @@ class Questions {
 			this.rl.question('Write a name: ', (name) => {
 				this.rl.question('Write a comment: ', (comment) => {
 					this.rl.question('Choose between 1-5: ', (stars) => {
-						let review = {name, comment, stars, date: new Date()};
+						let review = {name, comment, stars, date: this.getDate()};
 						callback(product, review);
 					});
 				});
 			});
 		});
 
+	}
+	getDate(){
+		const date = new Date();
+		const localeDate = date.toLocaleString('es-ES', {hour12: false});
+		return localeDate;
 	}
 }
 

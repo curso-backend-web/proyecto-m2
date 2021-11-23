@@ -1,6 +1,6 @@
 const env = process.env;
 
-export const config = {
+const config = {
 
     mySQL:{
         host: env.DB_HOST || 'localhost',
@@ -12,4 +12,5 @@ export const config = {
         url: env.DB_URL || 'mongodb://localhost:27017',
         database: env.DB_NAME || 'eShop'
     },
-}
+};
+export default config;

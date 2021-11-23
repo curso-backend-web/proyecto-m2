@@ -1,0 +1,172 @@
+use('eShop');
+/* db.createCollection('clients', {
+
+    validator:{
+        $jsonSchema: {
+            // validaciones collection
+            bsonType: "object",
+            required: ["_id","firstName","lastName"],
+             additionalProperties: true,
+            properties: { // como hariamos en typeScript, declaramos el tipado
+                _id: {
+                       bsonType: "objectId"
+                   },
+                firstName: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                lastName: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                address: {
+                    bsonType: "object",
+                    description: "Array of objects.",
+                    properties: {
+                        streetAddress: {
+                            bsonType: "string",
+                            description: "must be a string and is required"
+                        },
+                        city: {
+                            bsonType: "string",
+                            description: "must be a string and is required"
+                        },
+                        state: {
+                            bsonType: "string",
+                            description: "must be a string and is not required"
+                        },
+                        postalCode: {
+                            bsonType: "string",
+                            description: "must be a string and is required"
+                        }
+                        
+                    }
+
+                },
+                shoppingCart: {
+                    bsonType: "array",
+                    description: "Empty shoppingcart to be fullfilled with products"
+                }
+
+                }
+            }
+        }
+    
+}); */
+/* db.clients.insertOne({
+     firstName : "John",
+    lastName : "Wick",
+    dateBirth : "2021-11-15T18:43:07.351Z",
+    address : {
+        street : "Fellony125",
+        city : "New York",
+        state : "NY",
+        postalCode : "08125"
+    },
+    shoppingCart: []
+}) */
+/* db.createCollection('products', {
+
+    validator:{
+        $jsonSchema: {
+            // validaciones collection
+            bsonType: "object",
+            required: ["_id", "name" ,"description", "category", "price"],// que campos son obligatorios
+            additionalProperties: true,
+            properties: { // como hariamos en typeScript, declaramos el tipado
+                _id: {
+                    bsonType: "objectId"
+                },
+                name: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                description: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                category: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                reviews:{
+                    bsonType: "array",
+                    description: "Array of Objects",
+                    properties: {
+                         _id: {
+                    bsonType: "objectId"
+                },
+                name: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                comment: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                stars: {
+                    bsonType: "double",
+                    description: "must be a number and is required"
+                    min: 1,
+                    max: 5
+                },
+                date: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                }
+                }// end array
+                },
+                price: {
+                    bsonType: "double",
+                    minimum: 0,
+                    description: "must be a decimal and is required"
+                },
+                
+            }
+        }
+    }
+}); */
+/* db.products.insertOne({
+     name : "Juanola",
+    description : "Pastillas Juanola, licorice pills against coughing",
+    category : "Natural remedies",
+    reviews: [],
+    price: 5.95
+}) */
+/* db.createCollection('reviews', {
+
+    validator:{
+        $jsonSchema: {
+            // validaciones collection
+            bsonType: "object",
+            required: ["_id", "name" ,"comment", "stars", "date"],// que campos son obligatorios
+            additionalProperties: true,
+            properties: { // como hariamos en typeScript, declaramos el tipado
+                _id: {
+                    bsonType: "objectId"
+                },
+                name: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                comment: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                stars: {
+                    bsonType: "double",
+                    description: "must be a number and is required"
+                },
+                date: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                
+            }
+        }
+    }
+}) */
+// db.clients.drop();
+// db.products.drop();
+// db.reviews.drop();
+// https://docs.mongodb.com/manual/reference/method/Mongo/#Mongo
